@@ -19,7 +19,10 @@ MODEL = os.path.join(DIR, "release.caffemodel")
 # Check if model files exist
 if not os.path.exists(MODEL):
     raise FileNotFoundError(f"Model file not found: {MODEL}")
-
+if not os.path.exists(PROTOTXT):
+    raise FileNotFoundError(f"Prototxt file not found: {PROTOTXT}")
+if not os.path.exists(POINTS):
+    raise FileNotFoundError(f"Points file not found: {POINTS}")
 
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
 pts = np.load(POINTS)
