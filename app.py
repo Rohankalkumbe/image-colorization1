@@ -5,26 +5,18 @@ import os
 from PIL import Image
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
-UPLOAD_FOLDER = "static/uploads"
-RESULT_FOLDER = "static/results"
+UPLOAD_FOLDER = "/tmp/uploads"
+RESULT_FOLDER = "/tmp/results"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.getcwd()
 PROTOTXT = os.path.join(BASE_DIR, "models", "colorize.prototext")
 MODEL = os.path.join(BASE_DIR, "models", "release.caffemodel")
 POINTS = os.path.join(BASE_DIR, "models", "pts_in_hull.npy")
 
-# Debugging: Check model paths
-print("Loading model from:")
-print("Prototxt Path:", PROTOTXT)
-print("Model Path:", MODEL)
-print("Points Path:", POINTS)
-
-# Ensure models exist
 if not os.path.exists(PROTOTXT) or not os.path.exists(MODEL) or not os.path.exists(POINTS):
     raise FileNotFoundError("Model files are missing. Upload them to the 'models/' directory.")
-
 
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
 pts = np.load(POINTS)
@@ -52,21 +44,18 @@ def upload():
     result_path = os.path.join(RESULT_FOLDER, f"colorized_{file.filename}")
     file.save(filepath)
     
-    # Read original image
     image = cv2.imread(filepath)
-    original_size = (image.shape[1], image.shape[0])  # Save original dimensions
+    original_size = (image.shape[1], image.shape[0])
     
-    # Convert image to LAB color space
     scaled = image.astype("float32") / 255.0
     lab = cv2.cvtColor(scaled, cv2.COLOR_BGR2LAB)
     resized = cv2.resize(lab, (224, 224))
     L = cv2.split(resized)[0]
     L -= 50
     
-    # Colorization proces
     net.setInput(cv2.dnn.blobFromImage(L))
     ab = net.forward()[0, :, :, :].transpose((1, 2, 0))
-    ab = cv2.resize(ab, original_size)  # Resize colorized result to original siz
+    ab = cv2.resize(ab, original_size)
     L = cv2.split(lab)[0]
     colorized = np.concatenate((L[:, :, np.newaxis], ab), axis=2)
     colorized = cv2.cvtColor(colorized, cv2.COLOR_LAB2BGR)
@@ -76,11 +65,5 @@ def upload():
     return send_file(result_path, mimetype='image/jpeg')
 
 if __name__ == '__main__':
-    import webbrowser
-    from threading import Timer
-    
-    def open_browser():
-        webbrowser.open('http://127.0.0.1:5000')
-    
-    Timer(1, open_browser).start()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
