@@ -11,29 +11,16 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 # Load Model
-DIR = os.path.dirname(os.path.abspath(__file__))
-PROTOTXT = os.path.join(DIR, "colorize.prototext")
-POINTS = os.path.join(DIR, "pts_in_hull.npy")
-MODEL = os.path.join(DIR, "release.caffemodel")
-
-# Check if model files exist
-if not os.path.exists(MODEL):
-    raise FileNotFoundError(f"Model file not found: {MODEL}")
-if not os.path.exists(PROTOTXT):
-    raise FileNotFoundError(f"Prototxt file not found: {PROTOTXT}")
-if not os.path.exists(POINTS):
-    raise FileNotFoundError(f"Points file not found: {POINTS}")
+DIR = r"C:\Final Year Project\Colorization\Colorization"
+PROTOTXT = os.path.join(DIR, "models", "colorize.prototext")
+POINTS = os.path.join(DIR, "models", "pts_in_hull.npy")
+MODEL = os.path.join(DIR, "models", "release.caffemodel")
 
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
 pts = np.load(POINTS)
+class8 = net.getLayerId("class8_ab")
+conv8 = net.getLayerId("conv8_313_rh")
 pts = pts.transpose().reshape(2, 313, 1, 1)
-
-for layer in net.getLayerNames():
-    if "class8_ab" in layer:
-        class8 = net.getLayerId(layer)
-    if "conv8_313_rh" in layer:
-        conv8 = net.getLayerId(layer)
-
 net.getLayer(class8).blobs = [pts.astype("float32")]
 net.getLayer(conv8).blobs = [np.full([1, 313], 2.606, dtype="float32")]
 
@@ -66,10 +53,10 @@ def upload():
     L = cv2.split(resized)[0]
     L -= 50
     
-    # Colorization process
+    # Colorization proces
     net.setInput(cv2.dnn.blobFromImage(L))
     ab = net.forward()[0, :, :, :].transpose((1, 2, 0))
-    ab = cv2.resize(ab, original_size)  # Resize colorized result to original size
+    ab = cv2.resize(ab, original_size)  # Resize colorized result to original siz
     L = cv2.split(lab)[0]
     colorized = np.concatenate((L[:, :, np.newaxis], ab), axis=2)
     colorized = cv2.cvtColor(colorized, cv2.COLOR_LAB2BGR)
