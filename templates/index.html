@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Colorizer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Colorizer</h1>
+        <div class="upload-box">
+            <p>Experience the Magic of Colorization!</p>
+            <p>Upload your grayscale images and let us bring them to life with stunning colors.</p>
+            <input type="file" id="fileInput" accept="image/*">
+            <button onclick="uploadImage()">Upload</button>
+        </div>
+        <div class="image-container">
+            <div class="image-box">
+                <h2>Original Image</h2>
+                <img id="originalImage" style="display:none;">
+            </div>
+            <div class="image-box">
+                <h2>Colorized Image</h2>
+                <img id="colorizedImage" style="display:none;">
+                <a id="downloadBtn" style="display:none;" download="colorized_image.jpg">Download</a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="social-links">
+            <a href="http://127.0.0.1:5000/about" class="social-icon">About Us</a>
+            <p>&copy; 2025 Image Colorizer | Developed by MITENS</p>
+            
+        </div>
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
+</html>

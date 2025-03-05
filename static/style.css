@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: url('/static/background.png') no-repeat center center fixed;
+    background-size: cover;
+    height: 110vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    overflow-y: auto;
+}
+
+/* Container */
+.container {
+    flex: 1;
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 10px 30px rgba(255, 255, 255, 0.3);
+    overflow: auto;
+    max-height: 90vh;
+}
+
+/* Upload Box */
+.upload-box {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    display: inline-block;
+    margin-top: 20px;
+    box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* No File Chosen Message */
+.no-file {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* Image Container */
+.image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    max-height: 80vh;
+}
+
+/* Image Box */
+.image-box {
+    position: relative;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    width: 45%;
+    max-width: 400px;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Buttons */
+button, #downloadBtn {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    padding: 15px 22px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(255, 75, 43, 0.5);
+}
+
+button:hover, #downloadBtn:hover {
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(45deg, #282828, #010101);
+    color: white;
+    padding: 0.1px;
+    width: 100%;
+    text-align: center;
+    opacity: 0.98;
+    font-size: 14px;
+    box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Social Links */
+.social-links {
+    margin-top: 15px;
+}
+
+.social-icon {
+    margin: 0 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: #f1c40f;
+}
