@@ -12,9 +12,15 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 # Load Model
 DIR = r"C:\Users\Adin\OneDrive\Desktop\image-colorization1"
-PROTOTXT = os.path.join(DIR, "colorize.prototext")
-POINTS = os.path.join(DIR, "pts_in_hull.npy")
-MODEL = os.path.join(DIR, "release.caffemodel")
+PROTOTXT = os.path.join("colorize.prototext")
+POINTS = os.path.join("pts_in_hull.npy")
+MODEL = os.path.join("release.caffemodel")
+
+# Load Model
+'''DIR = r"C:\Final Year Project\Colorization\Colorization"
+PROTOTXT = os.path.join(DIR, "models", "colorize.prototext")
+POINTS = os.path.join(DIR, "models", "pts_in_hull.npy")
+MODEL = os.path.join(DIR, "models", "release.caffemodel")'''
 
 
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
