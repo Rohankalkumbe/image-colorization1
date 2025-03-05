@@ -16,8 +16,8 @@ os.makedirs(MODEL_FOLDER, exist_ok=True)
 # Google Drive Model Links
 MODEL_FILES = {
     "release.caffemodel": "1TTQ3NHtozTcPHn5igdVHEdOngWAJeoLR",
-    "pts_in_hull.npy": "13gO3-9krpU4Tht4qcyda1Yq_XhSnli6G",
-    "colorize.prototext": "1WgRO50tPMeWAvb8pOhyyrA0siZcMAnpQ",
+    "colorize.prototxt": "13gO3-9krpU4Tht4qcyda1Yq_XhSnli6G",
+    "pts_in_hull.npy": "1WgRO50tPMeWAvb8pOhyyrA0siZcMAnpQ",
 }
 
 # Function to download missing model files
