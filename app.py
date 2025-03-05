@@ -10,8 +10,8 @@ RESULT_FOLDER = "static/results"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-# Load Model
-DIR = r"C:\Final Year Project\Colorization\Colorization"
+# Load Model  
+DIR = r"C:\Users\Adin\OneDrive\Desktop\image-colorization1"
 PROTOTXT = os.path.join(DIR, "models", "colorize.prototext")
 POINTS = os.path.join(DIR, "models", "pts_in_hull.npy")
 MODEL = os.path.join(DIR, "models", "release.caffemodel")
