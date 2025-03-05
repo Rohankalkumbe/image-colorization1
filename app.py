@@ -16,6 +16,14 @@ PROTOTXT = os.path.join(DIR, "models", "colorize.prototext")
 POINTS = os.path.join(DIR, "models", "pts_in_hull.npy")
 MODEL = os.path.join(DIR, "models", "release.caffemodel")
 
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROTOTXT = os.path.join(BASE_DIR, "models", "colorize.prototext")
+MODEL = os.path.join(BASE_DIR, "models", "colorization.caffemodel")
+
+net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
+
+
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
 pts = np.load(POINTS)
 class8 = net.getLayerId("class8_ab")
