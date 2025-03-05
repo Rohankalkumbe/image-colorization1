@@ -10,11 +10,21 @@ RESULT_FOLDER = "static/results"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-# Load Model  
-DIR = r"C:\Users\Adin\OneDrive\Desktop\image-colorization1"
-PROTOTXT = os.path.join(DIR, "models", "colorize.prototext")
-POINTS = os.path.join(DIR, "models", "pts_in_hull.npy")
-MODEL = os.path.join(DIR, "models", "release.caffemodel")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROTOTXT = os.path.join(BASE_DIR, "models", "colorize.prototext")
+MODEL = os.path.join(BASE_DIR, "models", "release.caffemodel")
+POINTS = os.path.join(BASE_DIR, "models", "pts_in_hull.npy")
+
+# Debugging: Check model paths
+print("Loading model from:")
+print("Prototxt Path:", PROTOTXT)
+print("Model Path:", MODEL)
+print("Points Path:", POINTS)
+
+# Ensure models exist
+if not os.path.exists(PROTOTXT) or not os.path.exists(MODEL) or not os.path.exists(POINTS):
+    raise FileNotFoundError("Model files are missing. Upload them to the 'models/' directory.")
+
 
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
 pts = np.load(POINTS)
