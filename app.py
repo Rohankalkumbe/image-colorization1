@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, send_file
 import cv2
 import numpy as np
 import os
+import requests
 from PIL import Image
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -14,6 +15,16 @@ BASE_DIR = os.getcwd()
 PROTOTXT = os.path.join(BASE_DIR, "models", "colorize.prototext")
 MODEL = os.path.join(BASE_DIR, "models", "release.caffemodel")
 POINTS = os.path.join(BASE_DIR, "models", "pts_in_hull.npy")
+
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1WgRO50tPMeWAvb8pOhyyrA0siZcMAnpQ"
+os.makedirs("models", exist_ok=True)
+if not os.path.exists(MODEL):
+    print("Downloading model...")
+    response = requests.get(MODEL_URL, stream=True)
+    with open(MODEL, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+    print("Model downloaded successfully.")
 
 if not os.path.exists(PROTOTXT) or not os.path.exists(MODEL) or not os.path.exists(POINTS):
     raise FileNotFoundError("Model files are missing. Upload them to the 'models/' directory.")
