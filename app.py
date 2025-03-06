@@ -56,6 +56,10 @@ net.getLayer(conv8).blobs = [np.full([1, 313], 2.606, dtype="float32")]
 def index():
     return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files.get('file')
@@ -83,4 +87,4 @@ def upload():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
